@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parth Rastogi | Regulatory Affairs & Quality Assurance</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #2563eb;
+  --primary-light: #dbeafe;
+  --primary-dark: #1e40af;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --border: #e2e8f0;
+  --card: #ffffff;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 12px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: var(--shadow-md); }
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center; height: 64px;
+}
+.nav-logo { font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--primary); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--text-light); font-size: 0.88rem;
+  font-weight: 500; transition: color 0.2s; position: relative;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+.nav-links a.active::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 2px; background: var(--primary); border-radius: 1px;
+}
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: 0.3s; border-radius: 1px; }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 120px 24px 80px; background: linear-gradient(135deg, #f0f5ff 0%, #fafbff 50%, #f5f0ff 100%);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -200px; right: -200px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
+}
+.hero-content { max-width: 700px; text-align: center; position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-block; padding: 6px 16px; background: var(--primary-light);
+  color: var(--primary-dark); border-radius: 50px; font-size: 0.8rem;
+  font-weight: 600; margin-bottom: 24px; letter-spacing: 0.5px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif; font-size: 3.2rem;
+  font-weight: 700; line-height: 1.2; margin-bottom: 16px; color: var(--text);
+}
+.hero-sub {
+  font-size: 1.15rem; color: var(--text-light); margin-bottom: 12px; font-weight: 400;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 24px 0 32px;
+}
+.hero-tags span {
+  padding: 4px 12px; background: #fff; border: 1px solid var(--border);
+  border-radius: 50px; font-size: 0.78rem; color: var(--text-light); font-weight: 500;
+}
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  padding: 12px 28px; border-radius: 50px; font-size: 0.9rem; font-weight: 600;
+  text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.btn-outline:hover { background: var(--primary-light); }
+
+/* SECTIONS */
+section { padding: 80px 24px; }
+.section-alt { background: var(--bg-alt); }
+.container { max-width: 1000px; margin: 0 auto; }
+.section-label {
+  font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--primary); margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 2rem;
+  font-weight: 700; margin-bottom: 40px; color: var(--text);
+}
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.about-text p { color: var(--text-light); margin-bottom: 16px; font-size: 0.95rem; }
+.about-text strong { color: var(--text); }
+.about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.highlight-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; text-align: center; transition: all 0.25s;
+}
+.highlight-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.highlight-num { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+.highlight-label { font-size: 0.8rem; color: var(--text-light); margin-top: 4px; }
+
+/* EXPERIENCE TIMELINE */
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before {
+  content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+  width: 2px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 40px; }
+.timeline-item::before {
+  content: ''; position: absolute; left: -29px; top: 8px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--primary); border: 3px solid var(--primary-light);
+}
+.timeline-header { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+.timeline-company { font-weight: 700; font-size: 1rem; color: var(--text); }
+.timeline-location { color: var(--text-light); font-size: 0.85rem; }
+.timeline-role { font-weight: 600; color: var(--primary-dark); font-size: 0.95rem; margin-bottom: 4px; }
+.timeline-date { font-size: 0.8rem; color: var(--text-light); margin-bottom: 10px; }
+.timeline-tag {
+  display: inline-block; padding: 2px 10px; background: var(--primary-light);
+  color: var(--primary-dark); font-size: 0.72rem; font-weight: 600;
+  border-radius: 50px; margin-bottom: 12px;
+}
+.timeline-bullets { list-style: none; }
+.timeline-bullets li {
+  position: relative; padding-left: 16px; margin-bottom: 8px;
+  font-size: 0.88rem; color: var(--text-light); line-height: 1.6;
+}
+.timeline-bullets li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--primary);
+}
+
+/* SKILLS */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.skill-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; transition: all 0.25s;
+}
+.skill-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.skill-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tags span {
+  padding: 5px 12px; background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: 50px; font-size: 0.78rem; color: var(--text-light); font-weight: 500;
+}
+
+/* PROJECTS */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.project-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; transition: all 0.25s; position: relative; overflow: hidden;
+}
+.project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.project-num {
+  font-size: 0.72rem; font-weight: 700; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+}
+.project-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text); line-height: 1.4; }
+.project-card p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
+
+/* EDUCATION */
+.edu-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; margin-bottom: 16px; transition: all 0.25s;
+}
+.edu-card:hover { box-shadow: var(--shadow-md); }
+.edu-degree { font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 4px; }
+.edu-school { color: var(--primary-dark); font-weight: 600; font-size: 0.9rem; }
+.edu-date { font-size: 0.82rem; color: var(--text-light); margin-top: 4px; }
+.edu-detail { font-size: 0.85rem; color: var(--text-light); margin-top: 8px; line-height: 1.6; }
+
+/* AFFILIATIONS */
+.affiliations {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px;
+}
+.affiliation-tag {
+  padding: 6px 16px; background: var(--primary-light); color: var(--primary-dark);
+  border-radius: 50px; font-size: 0.82rem; font-weight: 600;
+}
+
+/* CONTACT */
+.contact-section { text-align: center; }
+.contact-section .section-title { margin-bottom: 16px; }
+.contact-sub { color: var(--text-light); font-size: 0.95rem; margin-bottom: 32px; }
+.contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.contact-card {
+  display: flex; align-items: center; gap: 12px; padding: 16px 24px;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  text-decoration: none; color: var(--text); transition: all 0.25s; font-size: 0.9rem;
+}
+.contact-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--primary); }
+.contact-icon {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--primary-light);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.contact-icon svg { width: 18px; height: 18px; stroke: var(--primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 32px 24px; border-top: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--text-light);
+}
+
+/* ANIMATIONS */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 16px 24px; gap: 16px; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: block; }
+  .hero h1 { font-size: 2.2rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .contact-links { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Parth<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Regulatory Affairs & Quality Assurance</div>
+    <h1>Parth Rastogi</h1>
+    <p class="hero-sub">MS Regulatory Affairs · Northeastern University</p>
+    <p class="hero-sub" style="font-size:0.95rem;">BioPharmaceuticals · Medical Devices · Global Submissions</p>
+    <div class="hero-tags">
+      <span>FDA</span><span>EU MDR</span><span>CTD/eCTD</span><span>ISO 13485</span>
+      <span>510(k)</span><span>cGMP</span><span>Veeva Vault RIM</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section-alt">
+  <div class="container">
+    <div class="section-label">About</div>
+    <div class="section-title">Bridging the lab and the regulator.</div>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p>Regulatory Affairs Specialist with <strong>2+ years of experience</strong> managing regulatory submissions, ensuring FDA and global regulatory compliance, and developing submission strategies for pharmaceutical and medical device products.</p>
+        <p>At <strong>AXA Parenterals</strong>, I led submissions for 15+ sterile injectable products across 10+ countries, achieving first-time approvals. At <strong>Virtuleap</strong>, I collaborated on clinical study protocols for a Class II VR medical device with full FDA compliance.</p>
+        <p>Currently at <strong>Rebecca Everlene Trust Company</strong>, contributing regulatory expertise to grant proposals and authoring white papers translating complex regulatory requirements into strategic narratives.</p>
+        <p>My approach is "technical-first" — translating complex clinical data and global requirements into successful regulatory approvals.</p>
+      </div>
+      <div class="about-highlights fade-up">
+        <div class="highlight-card">
+          <div class="highlight-num">2+</div>
+          <div class="highlight-label">Years Experience</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-num">15+</div>
+          <div class="highlight-label">Products Submitted</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-num">10+</div>
+          <div class="highlight-label">Countries</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-num">3</div>
+          <div class="highlight-label">Academic Projects</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Work History</div>
+    <div class="section-title">Professional Experience</div>
+    <div class="timeline">
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-header">
+          <div><div class="timeline-company">Rebecca Everlene Trust Company</div><div class="timeline-location">Chicago, IL (Remote)</div></div>
+        </div>
+        <div class="timeline-role">Regulatory Affairs Specialist</div>
+        <div class="timeline-date">Sep 2025 – Present</div>
+        <span class="timeline-tag">Regulatory Writing · Grant Proposals</span>
+        <ul class="timeline-bullets">
+          <li>Contributing regulatory expertise to grant proposals, ensuring alignment with organizational policies and global compliance standards.</li>
+          <li>Developing and reviewing regulatory and technical documents, enhancing accuracy and adherence to Good Documentation Practices (GDP).</li>
+          <li>Authoring white papers translating complex regulatory requirements and technical data into clear, strategic narratives.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-header">
+          <div><div class="timeline-company">Virtuleap</div><div class="timeline-location">Boston, MA</div></div>
+        </div>
+        <div class="timeline-role">Regulatory & Clinical Research Intern</div>
+        <div class="timeline-date">Apr 2025 – Jun 2025</div>
+        <span class="timeline-tag">Class II VR Device · FDA · ICH GCP</span>
+        <ul class="timeline-bullets">
+          <li>Collaborated with cross-functional teams to develop a clinical study protocol for a Class II VR medical device, ensuring 100% compliance with FDA 21 CFR 812, ICH GCP, and ISO 14155.</li>
+          <li>Authored clinical study protocols including objectives, endpoints, and inclusion/exclusion criteria; managed IRB submissions and HIPAA compliance for a 510(k)-exempt regulatory pathway.</li>
+          <li>Conducted regulatory research on device classification and predicate device analysis to support submission strategy.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-header">
+          <div><div class="timeline-company">AXA Parenterals Ltd.</div><div class="timeline-location">Roorkee, India</div></div>
+        </div>
+        <div class="timeline-role">Drug Regulatory Affairs Officer</div>
+        <div class="timeline-date">Jul 2021 – Aug 2023</div>
+        <span class="timeline-tag">Sterile Injectables · CTD/ACTD · Global Submissions</span>
+        <ul class="timeline-bullets">
+          <li>Achieved first-time approval by leading regulatory submissions for 15+ sterile injectable products across 10+ countries (US, LATAM, Asia, and Africa).</li>
+          <li>Compiled and submitted Module 1, Module 2 & Module 3 (CMC) documentation in alignment with ICH Q8–Q10 guidelines and FDA guidelines.</li>
+          <li>Coordinated cross-functional inputs from QA, Manufacturing, and R&D teams to meet submission timelines and maintain cGMP compliance.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-header">
+          <div><div class="timeline-company">Himalaya Wellness Company</div><div class="timeline-location">Dehradun, India</div></div>
+        </div>
+        <div class="timeline-role">Quality Assurance Research Analyst</div>
+        <div class="timeline-date">Oct 2017 – Mar 2018</div>
+        <span class="timeline-tag">GMP · Herbal Drug QC · 21 CFR Part 111</span>
+        <ul class="timeline-bullets">
+          <li>Performed GMP documentation reviews ensuring accuracy and compliance with internal and regulatory standards.</li>
+          <li>Evaluated quality data and technical documents to support regulatory and audit readiness.</li>
+          <li>Maintained organized, audit-ready records contributing to successful quality inspections.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section-alt">
+  <div class="container">
+    <div class="section-label">Core Competencies</div>
+    <div class="section-title">Skills & Expertise</div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <h3>Regulatory Submissions</h3>
+        <div class="skill-tags">
+          <span>CTD/eCTD/ACTD</span><span>NDA/ANDA</span><span>IND</span>
+          <span>510(k)</span><span>PMA</span><span>eSTAR</span>
+          <span>EU MDR</span><span>CE Marking</span><span>MDSAP</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <h3>Compliance & Quality</h3>
+        <div class="skill-tags">
+          <span>FDA 21 CFR</span><span>cGMP (210/211)</span><span>ISO 13485</span>
+          <span>ISO 14971</span><span>ICH Q8–Q10</span><span>QMS</span>
+          <span>Change Control</span><span>CAPA</span><span>Gap Analysis</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <h3>Safety & Surveillance</h3>
+        <div class="skill-tags">
+          <span>Pharmacovigilance</span><span>AE/SAE Reporting</span>
+          <span>FAERS/REMS</span><span>Signal Detection</span>
+          <span>Post-Market Surveillance</span><span>Labeling (21 CFR 201)</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <h3>Tools & Platforms</h3>
+        <div class="skill-tags">
+          <span>Veeva Vault RIM</span><span>ArisGlobal LifeSphere</span>
+          <span>Greenlight Guru</span><span>SharePoint</span>
+          <span>Adobe Acrobat</span><span>MS Office</span><span>SPL/XML</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Academic Work</div>
+    <div class="section-title">Key Projects</div>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-num">Project 01</div>
+        <h3>Global Regulatory Strategy — Class III Medical Device</h3>
+        <p>Developed a regulatory strategy for a Class III device across the U.S. (PMA), EU (CE marking), Canada (MDL), Australia (TGA), Mexico (COFEPRIS), and Singapore (HSA) for market access.</p>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-num">Project 02</div>
+        <h3>eSTAR Submission — IVD Medical Device</h3>
+        <p>Designed and prepared a mock eSTAR submission application for 510(k) submission of an in-vitro diagnostic device intended for infectious disease detection.</p>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-num">Project 03</div>
+        <h3>FAERS Data & REMS Analysis</h3>
+        <p>Evaluated adverse event databases to develop risk mitigation strategies and improved pharmacovigilance compliance through data-driven safety assessment protocols.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="section-alt">
+  <div class="container">
+    <div class="section-label">Academic Background</div>
+    <div class="section-title">Education</div>
+
+    <div class="edu-card fade-up">
+      <div class="edu-degree">Master of Science — Regulatory Affairs</div>
+      <div class="edu-school">Northeastern University · Boston, MA</div>
+      <div class="edu-date">Sep 2023 – Jun 2025</div>
+      <div class="edu-detail">Regulatory Compliance Practice, Medical Device Development, Legal Issues & International Regulations, Strategic Planning, Product Development & Process Validation, Cybersecurity in Digital Health Technology.</div>
+    </div>
+
+    <div class="edu-card fade-up">
+      <div class="edu-degree">Master of Pharmacology</div>
+      <div class="edu-school">Amity University · Lucknow, India</div>
+      <div class="edu-date">Apr 2019 – Mar 2021</div>
+    </div>
+
+    <div class="edu-card fade-up">
+      <div class="edu-degree">Bachelor of Pharmacy</div>
+      <div class="edu-school">Amity University · Lucknow, India</div>
+      <div class="edu-date">Apr 2014 – Mar 2018</div>
+    </div>
+
+    <div class="section-label" style="margin-top:40px;">Professional Affiliations</div>
+    <div class="affiliations">
+      <span class="affiliation-tag">RAPS — Student Member</span>
+      <span class="affiliation-tag">ACS — Member</span>
+      <span class="affiliation-tag">SPER — Life Member</span>
+      <span class="affiliation-tag">ISPE — Member</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container contact-section">
+    <div class="section-label">Get in Touch</div>
+    <div class="section-title">Let's Connect.</div>
+    <p class="contact-sub">Seeking roles in Regulatory Affairs, Quality Assurance, and Clinical Research across the U.S.</p>
+    <div class="contact-links">
+      <a href="mailto:rastogiparth.pr@gmail.com" class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        rastogiparth.pr@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/rastogi-parth/" target="_blank" class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        LinkedIn
+      </a>
+      <a href="tel:+18575065283" class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        +1 (857) 506-5283
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Parth Rastogi · Regulatory Affairs & Quality Assurance · Carteret, NJ
+</footer>
+
+<script>
+// Navbar scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Mobile hamburger
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+// Active link highlight
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
