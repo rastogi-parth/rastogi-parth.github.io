@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parth Rastogi | Regulatory Affairs & Quality Assurance</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -18,300 +18,374 @@
   --text-light: #475569;
   --text-muted: #64748b;
   --bg: #ffffff;
-  --bg-alt: #f1f5f9;
-  --border: #cbd5e1;
+  --bg-alt: #f8fafc;
+  --border: #e2e8f0;
   --card: #ffffff;
-  --shadow: 0 1px 3px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+  --shadow: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(15,23,42,0.07);
   --shadow-lg: 0 8px 30px rgba(15,23,42,0.1);
-  --radius: 16px;
+  --radius: 14px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
 }
 
-html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg-alt); line-height: 1.7; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; overflow-x: hidden; }
 
-/* NAV */
+/* ── NAV ── */
 nav {
   position: fixed; top: 0; width: 100%; z-index: 1000;
-  background: rgba(255,255,255,0.95); backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border); transition: box-shadow 0.3s;
+  background: rgba(255,255,255,0.0); backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: all 0.5s var(--ease);
 }
-nav.scrolled { box-shadow: var(--shadow-md); }
+nav.scrolled {
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(16px);
+  border-bottom-color: var(--border); box-shadow: var(--shadow-md);
+}
 .nav-inner {
-  max-width: 1200px; margin: 0 auto; padding: 0 32px;
+  max-width: 1100px; margin: 0 auto; padding: 0 32px;
   display: flex; justify-content: space-between; align-items: center; height: 64px;
 }
-.nav-logo { font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: -0.5px; }
-.nav-logo span { color: var(--primary); }
-.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-img {
+  width: 32px; height: 32px; border-radius: 6px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  /* REPLACE: add your logo as <img src="logo-personal.png"> inside this div */
+  background: var(--primary-light); border: 1px solid var(--border);
+}
+.nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+.nav-brand-text {
+  font-weight: 900; font-size: 0.82rem; color: var(--text);
+  letter-spacing: 2.5px; text-transform: uppercase; transition: color 0.3s;
+}
+nav.scrolled .nav-brand-text { color: var(--text); }
+.nav-links { display: flex; gap: 24px; list-style: none; }
 .nav-links a {
-  text-decoration: none; color: var(--text-muted); font-size: 0.87rem;
-  font-weight: 500; transition: color 0.2s; position: relative;
+  text-decoration: none; color: var(--text-muted); font-size: 0.83rem;
+  font-weight: 500; transition: all 0.3s var(--ease); position: relative; padding: 4px 0;
 }
-.nav-links a:hover, .nav-links a.active { color: var(--primary); }
-.nav-links a.active::after {
-  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 50%; width: 0;
   height: 2px; background: var(--primary); border-radius: 1px;
+  transition: all 0.35s var(--ease);
 }
+.nav-links a:hover { color: var(--primary); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; left: 0; }
+.nav-links a.active { color: var(--primary); }
+
+/* Nav click ripple */
+.nav-links a { position: relative; overflow: hidden; }
+.nav-ripple {
+  position: absolute; border-radius: 50%; background: rgba(2,132,199,0.12);
+  transform: scale(0); animation: navRipple 0.5s var(--ease) forwards; pointer-events: none;
+}
+@keyframes navRipple { to { transform: scale(4); opacity: 0; } }
+
 .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
 .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; transition: 0.3s; border-radius: 2px; }
 
-/* FULL-WIDTH CARD WRAPPER */
-.fw-section { padding: 12px 24px; max-width: 1200px; margin: 0 auto; }
-.fw-card {
-  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
-  padding: 48px; border: 1px solid var(--border); transition: box-shadow 0.3s;
+/* ── ANIMATIONS ── */
+.anim { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.anim.from-left { transform: translateX(-35px) translateY(0); }
+.anim.from-right { transform: translateX(35px) translateY(0); }
+.anim.scale-in { transform: scale(0.94); }
+.anim.visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+.stagger-children .anim-child {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
 }
-.fw-card:hover { box-shadow: var(--shadow-md); }
+.stagger-children.visible .anim-child { opacity: 1; transform: translateY(0); }
+
+/* Scroll-triggered section highlight */
+.section-flash { animation: sectionFlash 0.6s var(--ease); }
+@keyframes sectionFlash {
+  0% { background-color: transparent; }
+  30% { background-color: rgba(2,132,199,0.03); }
+  100% { background-color: transparent; }
+}
+
+/* ── SECTIONS (seamless) ── */
+.section {
+  padding: 72px 24px; max-width: 1100px; margin: 0 auto;
+  transition: background-color 0.5s var(--ease);
+}
+.section-divider {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+}
+.section-divider hr {
+  border: none; height: 1px; background: var(--border);
+}
 .section-label {
-  font-size: 0.73rem; font-weight: 700; text-transform: uppercase;
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 2.5px; color: var(--primary); margin-bottom: 8px;
 }
 .section-title {
-  font-family: 'Playfair Display', serif; font-size: 2rem;
+  font-family: 'Playfair Display', serif; font-size: 1.9rem;
   font-weight: 700; margin-bottom: 36px; color: var(--text);
 }
 
-/* HERO */
-.hero-section { padding: 88px 24px 12px; max-width: 1200px; margin: 0 auto; }
+/* ── HERO ── */
+.hero-wrap { background: var(--bg); }
+.hero-section { padding: 100px 24px 48px; max-width: 1100px; margin: 0 auto; }
 .hero-card {
   background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow-md);
   border: 1px solid var(--border); overflow: hidden;
-  display: grid; grid-template-columns: 340px 1fr; min-height: 500px;
+  display: grid; grid-template-columns: 320px 1fr; min-height: 480px;
 }
 .hero-photo {
   background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 50%, #0369a1 100%);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 48px 28px; text-align: center; position: relative; overflow: hidden;
+  padding: 44px 24px; text-align: center; position: relative; overflow: hidden;
 }
 .hero-photo::before {
   content: ''; position: absolute; top: -80px; right: -80px;
   width: 220px; height: 220px; border-radius: 50%;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.05); animation: float 7s ease-in-out infinite;
 }
 .hero-photo::after {
   content: ''; position: absolute; bottom: -50px; left: -50px;
-  width: 180px; height: 180px; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-}
-.photo-frame {
   width: 160px; height: 160px; border-radius: 50%;
-  border: 4px solid rgba(255,255,255,0.35); overflow: hidden;
-  margin-bottom: 20px; position: relative; z-index: 1;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03); animation: float 9s ease-in-out infinite reverse;
+}
+@keyframes float { 0%,100%{transform:translate(0,0)} 50%{transform:translate(8px,-12px)} }
+.photo-frame {
+  width: 150px; height: 150px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.3); overflow: hidden;
+  margin-bottom: 18px; position: relative; z-index: 1;
+  background: rgba(255,255,255,0.1);
   display: flex; align-items: center; justify-content: center;
+  transition: transform 0.5s var(--ease), border-color 0.4s;
 }
+.photo-frame:hover { transform: scale(1.05); border-color: rgba(255,255,255,0.55); }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
-.photo-initials { font-size: 3.2rem; color: rgba(255,255,255,0.85); font-weight: 700; }
-.hero-photo-name { color: #fff; font-weight: 700; font-size: 1.25rem; margin-bottom: 4px; position: relative; z-index: 1; }
-.hero-photo-title { color: rgba(255,255,255,0.88); font-size: 0.83rem; font-weight: 400; position: relative; z-index: 1; }
-.hero-photo-location { color: rgba(255,255,255,0.7); font-size: 0.78rem; margin-top: 6px; position: relative; z-index: 1; }
-.hero-photo-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 16px; position: relative; z-index: 1; }
+.photo-initials { font-size: 3rem; color: rgba(255,255,255,0.8); font-weight: 700; }
+.hero-photo-name { color: #fff; font-weight: 700; font-size: 1.2rem; margin-bottom: 3px; position: relative; z-index: 1; }
+.hero-photo-title { color: rgba(255,255,255,0.85); font-size: 0.82rem; position: relative; z-index: 1; }
+.hero-photo-location { color: rgba(255,255,255,0.65); font-size: 0.76rem; margin-top: 5px; position: relative; z-index: 1; }
+.hero-photo-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 14px; position: relative; z-index: 1; }
 .hero-photo-badges span {
-  padding: 4px 12px; background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.22); border-radius: 50px;
-  font-size: 0.72rem; color: #fff; font-weight: 500;
+  padding: 3px 11px; background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 50px;
+  font-size: 0.7rem; color: #fff; font-weight: 500; transition: all 0.3s;
 }
-.hero-content { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+.hero-photo-badges span:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.hero-content { padding: 44px; display: flex; flex-direction: column; justify-content: center; }
 .hero-badge {
   display: inline-block; padding: 5px 14px; background: var(--primary-light);
-  color: var(--primary-dark); border-radius: 50px; font-size: 0.75rem;
-  font-weight: 600; margin-bottom: 20px; width: fit-content; letter-spacing: 0.5px;
+  color: var(--primary-dark); border-radius: 50px; font-size: 0.73rem;
+  font-weight: 600; margin-bottom: 18px; width: fit-content; letter-spacing: 0.5px;
 }
 .hero-content h1 {
-  font-family: 'Playfair Display', serif; font-size: 2.8rem;
-  font-weight: 700; line-height: 1.15; margin-bottom: 12px; color: var(--text);
+  font-family: 'Playfair Display', serif; font-size: 2.6rem;
+  font-weight: 700; line-height: 1.15; margin-bottom: 10px; color: var(--text);
 }
-.hero-sub { font-size: 1.05rem; color: var(--text-light); margin-bottom: 6px; }
-.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 28px; }
+.hero-sub { font-size: 1rem; color: var(--text-light); margin-bottom: 5px; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 26px; }
 .hero-tags span {
-  padding: 5px 14px; background: var(--primary-bg); border: 1px solid var(--border);
-  border-radius: 50px; font-size: 0.78rem; color: var(--text-light); font-weight: 500;
+  padding: 4px 13px; background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: 50px; font-size: 0.76rem; color: var(--text-muted); font-weight: 500;
+  transition: all 0.3s var(--ease);
 }
+.hero-tags span:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
 .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn {
-  padding: 12px 28px; border-radius: 50px; font-size: 0.88rem; font-weight: 600;
-  text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
+  padding: 11px 26px; border-radius: 50px; font-size: 0.86rem; font-weight: 600;
+  text-decoration: none; transition: all 0.3s var(--ease); cursor: pointer; border: none;
+  position: relative; overflow: hidden;
 }
+.btn::after {
+  content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.12);
+  transform: translateX(-101%); transition: transform 0.4s var(--ease);
+}
+.btn:hover::after { transform: translateX(0); }
 .btn-primary { background: var(--primary); color: #fff; }
-.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(2,132,199,0.28); }
 .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-.btn-outline:hover { background: var(--primary-light); }
+.btn-outline:hover { background: var(--primary-light); transform: translateY(-2px); }
 
-/* STATS ROW */
-.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 24px; }
+/* ── STATS ── */
+.stats-section { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding-bottom: 24px; }
 .stat-card {
-  background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
-  padding: 22px; text-align: center; box-shadow: var(--shadow); transition: all 0.25s;
+  padding: 20px; text-align: center; border-radius: var(--radius);
+  background: var(--bg-alt); border: 1px solid var(--border);
+  transition: all 0.4s var(--ease);
 }
-.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.stat-num { font-size: 1.9rem; font-weight: 800; color: var(--primary); line-height: 1; }
-.stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; font-weight: 500; }
+.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); background: #fff; }
+.stat-num { font-size: 1.8rem; font-weight: 800; color: var(--primary); line-height: 1; }
+.stat-label { font-size: 0.76rem; color: var(--text-muted); margin-top: 5px; font-weight: 500; }
 
-/* ABOUT */
-.about-text p { color: var(--text-light); margin-bottom: 14px; font-size: 0.94rem; }
+/* ── ABOUT ── */
+.about-text p { color: var(--text-light); margin-bottom: 14px; font-size: 0.93rem; }
 .about-text strong { color: var(--text); }
 .about-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
 .about-info-item {
-  padding: 12px 16px; background: var(--primary-bg); border-radius: 10px;
-  font-size: 0.84rem; color: var(--text-light); display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; background: var(--bg-alt); border-radius: 10px;
+  font-size: 0.83rem; color: var(--text-light); display: flex; align-items: center; gap: 10px;
+  transition: all 0.3s var(--ease);
 }
-.about-info-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+.about-info-item:hover { background: var(--primary-light); transform: translateX(4px); }
+.about-info-item .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); flex-shrink: 0; transition: transform 0.3s; }
+.about-info-item:hover .dot { transform: scale(1.5); }
 
-/* EXPERIENCE */
-.exp-cards { display: flex; flex-direction: column; gap: 18px; }
+/* ── EXPERIENCE ── */
+.exp-cards { display: flex; flex-direction: column; gap: 16px; }
 .exp-card {
-  background: var(--primary-bg); border-radius: 14px; padding: 28px;
-  border-left: 4px solid var(--primary); transition: all 0.25s;
+  background: var(--bg-alt); border-radius: var(--radius); padding: 26px;
+  border-left: 3px solid var(--primary); transition: all 0.4s var(--ease);
 }
-.exp-card:hover { box-shadow: var(--shadow); background: var(--primary-light); }
-.exp-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
-.exp-left { display: flex; align-items: center; gap: 14px; }
+.exp-card:hover { box-shadow: var(--shadow-md); background: var(--primary-bg); transform: translateX(4px); }
+.exp-top { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
 .exp-logo {
-  width: 44px; height: 44px; border-radius: 10px; background: #fff;
+  width: 42px; height: 42px; border-radius: 10px; background: #fff;
   border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-  overflow: hidden; flex-shrink: 0;
+  overflow: hidden; flex-shrink: 0; transition: transform 0.3s;
 }
-.exp-logo img { width: 32px; height: 32px; object-fit: contain; }
-.exp-company { font-weight: 700; font-size: 1.02rem; color: var(--text); }
-.exp-location { color: var(--text-muted); font-size: 0.8rem; }
-.exp-role { font-weight: 600; color: var(--primary-dark); font-size: 0.93rem; margin-bottom: 3px; }
-.exp-date { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px; }
+.exp-card:hover .exp-logo { transform: scale(1.08); }
+.exp-logo img { width: 30px; height: 30px; object-fit: contain; }
+.exp-company { font-weight: 700; font-size: 1rem; color: var(--text); }
+.exp-location { color: var(--text-muted); font-size: 0.78rem; }
+.exp-role { font-weight: 600; color: var(--primary-dark); font-size: 0.92rem; margin-bottom: 2px; }
+.exp-date { font-size: 0.77rem; color: var(--text-muted); margin-bottom: 8px; }
 .exp-tag {
-  display: inline-block; padding: 3px 12px; background: var(--primary-light);
-  color: var(--primary-dark); font-size: 0.71rem; font-weight: 600;
+  display: inline-block; padding: 3px 11px; background: var(--primary-light);
+  color: var(--primary-dark); font-size: 0.7rem; font-weight: 600;
   border-radius: 50px; margin-bottom: 12px;
 }
 .exp-bullets { list-style: none; }
 .exp-bullets li {
-  position: relative; padding-left: 16px; margin-bottom: 7px;
-  font-size: 0.86rem; color: var(--text-light); line-height: 1.6;
+  position: relative; padding-left: 15px; margin-bottom: 6px;
+  font-size: 0.85rem; color: var(--text-light); line-height: 1.6;
 }
 .exp-bullets li::before {
   content: ''; position: absolute; left: 0; top: 10px;
   width: 5px; height: 5px; border-radius: 50%; background: var(--primary);
 }
 
-/* SKILLS */
-.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+/* ── SKILLS ── */
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .skill-card {
-  background: var(--primary-bg); border-radius: 14px; padding: 26px; transition: all 0.25s;
+  background: var(--bg-alt); border-radius: var(--radius); padding: 24px; transition: all 0.4s var(--ease);
 }
-.skill-card:hover { box-shadow: var(--shadow); background: #fff; }
-.skill-card h3 {
-  font-size: 0.93rem; font-weight: 700; margin-bottom: 14px; color: var(--text);
-  display: flex; align-items: center; gap: 10px;
-}
-.skill-icon { width: 30px; height: 30px; border-radius: 8px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; }
-.skill-icon svg { width: 15px; height: 15px; stroke: var(--primary); fill: none; stroke-width: 2; }
-.skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-card:hover { box-shadow: var(--shadow-md); background: #fff; transform: translateY(-3px); }
+.skill-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 14px; color: var(--text); display: flex; align-items: center; gap: 10px; }
+.skill-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.skill-card:hover .skill-icon { background: var(--primary); }
+.skill-card:hover .skill-icon svg { stroke: #fff; }
+.skill-icon svg { width: 14px; height: 14px; stroke: var(--primary); fill: none; stroke-width: 2; transition: stroke 0.3s; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .skill-tags span {
-  padding: 5px 13px; background: #fff; border: 1px solid var(--border);
-  border-radius: 50px; font-size: 0.77rem; color: var(--text-light); font-weight: 500;
-  transition: all 0.2s;
+  padding: 4px 12px; background: #fff; border: 1px solid var(--border);
+  border-radius: 50px; font-size: 0.76rem; color: var(--text-light); font-weight: 500;
+  transition: all 0.25s var(--ease);
 }
-.skill-tags span:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+.skill-tags span:hover { border-color: var(--primary); color: #fff; background: var(--primary); transform: translateY(-2px); box-shadow: 0 3px 10px rgba(2,132,199,0.2); }
 
-/* PROJECTS */
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.project-card {
-  background: var(--primary-bg); border-radius: 14px; padding: 26px;
-  transition: all 0.25s; position: relative; overflow: hidden;
+/* ── PROJECTS ── */
+.capstone-card {
+  background: var(--bg-alt); border-radius: var(--radius); padding: 26px;
+  border: 1px solid var(--border); margin-bottom: 20px; transition: all 0.4s var(--ease);
 }
-.project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); background: #fff; }
+.capstone-card:hover { box-shadow: var(--shadow-md); background: #fff; }
+.capstone-label { display: inline-block; padding: 3px 11px; background: var(--primary-light); color: var(--primary-dark); font-size: 0.7rem; font-weight: 600; border-radius: 50px; margin-bottom: 12px; }
+.capstone-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 5px; color: var(--text); }
+.capstone-card .cap-sub { font-size: 0.84rem; color: var(--primary-dark); font-weight: 600; margin-bottom: 3px; }
+.capstone-card .cap-date { font-size: 0.77rem; color: var(--text-muted); margin-bottom: 12px; }
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.project-card {
+  background: var(--bg-alt); border-radius: var(--radius); padding: 24px;
+  transition: all 0.4s var(--ease); position: relative; overflow: hidden;
+}
+.project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); background: #fff; }
 .project-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--accent)); opacity: 0; transition: opacity 0.3s;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease);
 }
-.project-card:hover::before { opacity: 1; }
-.project-num {
-  font-size: 0.7rem; font-weight: 700; color: var(--primary);
-  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;
-}
-.project-card h3 { font-size: 0.93rem; font-weight: 700; margin-bottom: 8px; color: var(--text); line-height: 1.4; }
-.project-card p { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; }
+.project-card:hover::before { transform: scaleX(1); }
+.project-num { font-size: 0.69rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+.project-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 7px; color: var(--text); line-height: 1.4; }
+.project-card p { font-size: 0.81rem; color: var(--text-light); line-height: 1.6; }
 
-/* EDUCATION */
-.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+/* ── PUBLICATIONS ── */
+.pub-list { display: flex; flex-direction: column; gap: 14px; }
+.pub-item {
+  background: var(--bg-alt); border-radius: var(--radius); padding: 22px;
+  border-left: 3px solid var(--accent); transition: all 0.4s var(--ease);
+}
+.pub-item:hover { box-shadow: var(--shadow-md); background: #fff; transform: translateX(4px); }
+.pub-num { font-size: 0.69rem; font-weight: 700; color: var(--primary); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 1px; }
+.pub-title { font-size: 0.91rem; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 5px; }
+.pub-journal { font-size: 0.81rem; color: var(--text-light); font-style: italic; margin-bottom: 3px; }
+.pub-doi { font-size: 0.77rem; color: var(--text-muted); }
+.pub-doi a { color: var(--primary); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+.pub-doi a:hover { text-decoration: underline; color: var(--primary-dark); }
+
+/* ── EDUCATION ── */
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .edu-card {
-  background: var(--primary-bg); border-radius: 14px; padding: 26px; transition: all 0.25s;
+  background: var(--bg-alt); border-radius: var(--radius); padding: 24px; transition: all 0.4s var(--ease);
 }
-.edu-card:hover { box-shadow: var(--shadow); background: #fff; }
-.edu-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
-.edu-logo {
-  width: 48px; height: 48px; border-radius: 10px; background: #fff;
-  border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-  overflow: hidden; flex-shrink: 0;
-}
-.edu-logo img { width: 36px; height: 36px; object-fit: contain; }
-.edu-degree { font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 2px; }
-.edu-school { color: var(--primary-dark); font-weight: 600; font-size: 0.86rem; }
-.edu-date { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
-.edu-detail { font-size: 0.82rem; color: var(--text-light); margin-top: 8px; line-height: 1.6; }
+.edu-card:hover { box-shadow: var(--shadow-md); background: #fff; transform: translateY(-3px); }
+.edu-top { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.edu-logo { width: 44px; height: 44px; border-radius: 10px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; transition: transform 0.3s; }
+.edu-card:hover .edu-logo { transform: scale(1.08); }
+.edu-logo img { width: 34px; height: 34px; object-fit: contain; }
+.edu-degree { font-weight: 700; font-size: 0.98rem; color: var(--text); margin-bottom: 2px; }
+.edu-school { color: var(--primary-dark); font-weight: 600; font-size: 0.84rem; }
+.edu-date { font-size: 0.77rem; color: var(--text-muted); margin-top: 3px; }
+.edu-detail { font-size: 0.81rem; color: var(--text-light); margin-top: 8px; line-height: 1.6; }
 
-/* AFFILIATIONS */
-.affiliations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 8px; }
+/* ── AFFILIATIONS ── */
+.affiliations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 8px; }
 .aff-card {
-  display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 20px 12px;
-  background: var(--primary-bg); border-radius: 12px; text-align: center; transition: all 0.25s;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 10px;
+  background: var(--bg-alt); border-radius: 12px; text-align: center; transition: all 0.4s var(--ease);
 }
-.aff-card:hover { box-shadow: var(--shadow); background: #fff; }
-.aff-logo {
-  width: 48px; height: 48px; border-radius: 10px; background: #fff;
-  border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-}
-.aff-logo img { width: 36px; height: 36px; object-fit: contain; }
-.aff-name { font-size: 0.78rem; font-weight: 600; color: var(--text); }
-.aff-type { font-size: 0.7rem; color: var(--text-muted); }
+.aff-card:hover { box-shadow: var(--shadow-md); background: #fff; transform: translateY(-4px); }
+.aff-logo { width: 44px; height: 44px; border-radius: 10px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: transform 0.3s; }
+.aff-card:hover .aff-logo { transform: scale(1.1); }
+.aff-logo img { width: 34px; height: 34px; object-fit: contain; }
+.aff-name { font-size: 0.77rem; font-weight: 600; color: var(--text); }
+.aff-type { font-size: 0.69rem; color: var(--text-muted); }
 
-/* CONTACT */
+/* ── CONTACT ── */
 .contact-inner { text-align: center; }
-.contact-sub { color: var(--text-light); font-size: 0.94rem; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto; }
-.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 700px; margin: 0 auto; }
+.contact-sub { color: var(--text-light); font-size: 0.93rem; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 680px; margin: 0 auto; }
 .contact-card {
-  display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 28px 16px;
-  background: var(--primary-bg); border-radius: 14px;
-  text-decoration: none; color: var(--text); transition: all 0.25s;
+  display: flex; flex-direction: column; align-items: center; gap: 9px; padding: 26px 14px;
+  background: var(--bg-alt); border-radius: var(--radius);
+  text-decoration: none; color: var(--text); transition: all 0.4s var(--ease);
 }
-.contact-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); background: #fff; }
-.contact-icon {
-  width: 48px; height: 48px; border-radius: 14px; background: var(--primary-light);
-  display: flex; align-items: center; justify-content: center;
-}
-.contact-icon svg { width: 20px; height: 20px; stroke: var(--primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.contact-card-label { font-size: 0.73rem; color: var(--text-muted); font-weight: 500; }
-.contact-card-value { font-weight: 600; color: var(--text); font-size: 0.83rem; word-break: break-all; }
+.contact-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); background: #fff; }
+.contact-card:hover .contact-icon { background: var(--primary); }
+.contact-card:hover .contact-icon svg { stroke: #fff; }
+.contact-icon { width: 46px; height: 46px; border-radius: 13px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; transition: all 0.3s var(--ease); }
+.contact-icon svg { width: 19px; height: 19px; stroke: var(--primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s; }
+.contact-card-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
+.contact-card-value { font-weight: 600; color: var(--text); font-size: 0.82rem; word-break: break-all; }
 
-/* FOOTER */
-footer {
-  text-align: center; padding: 28px 24px;
-  font-size: 0.78rem; color: var(--text-muted);
-}
+footer { text-align: center; padding: 28px 24px; font-size: 0.77rem; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 24px; }
 
-/* ANIMATIONS */
-.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-
-/* MOBILE */
+/* ── MOBILE ── */
 @media (max-width: 900px) {
   .hero-card { grid-template-columns: 1fr; }
-  .hero-photo { padding: 36px 24px; }
-  .photo-frame { width: 120px; height: 120px; }
-  .photo-initials { font-size: 2.5rem; }
-  .hero-content { padding: 28px 24px; }
-  .hero-content h1 { font-size: 2rem; }
+  .hero-photo { padding: 32px 20px; }
+  .photo-frame { width: 110px; height: 110px; }
+  .photo-initials { font-size: 2.3rem; }
+  .hero-content { padding: 24px 20px; }
+  .hero-content h1 { font-size: 1.9rem; }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
-  .skills-grid { grid-template-columns: 1fr; }
+  .skills-grid, .edu-grid { grid-template-columns: 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
-  .edu-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .about-info-grid { grid-template-columns: 1fr; }
   .affiliations-grid { grid-template-columns: repeat(2, 1fr); }
-  .fw-card { padding: 24px; }
+  .section { padding: 48px 20px; }
 }
 @media (max-width: 768px) {
-  .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 16px 24px; gap: 16px; box-shadow: var(--shadow-md); }
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 24px; gap: 14px; box-shadow: var(--shadow-md); }
   .nav-links.open { display: flex; }
   .hamburger { display: block; }
 }
@@ -322,343 +396,399 @@ footer {
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">Parth<span>.</span></a>
+    <a href="#" class="nav-brand">
+      <div class="nav-logo-img">
+        <!-- REPLACE: Upload your personal logo as logo-personal.png and add: <img src="logo-personal.png" alt="PR"> -->
+      </div>
+      <span class="nav-brand-text">Parth Rastogi</span>
+    </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#volunteer">Volunteer</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- HERO CARD -->
-<div class="hero-section">
-  <div class="hero-card fade-up">
-    <div class="hero-photo">
-      <div class="photo-frame">
-        <!-- REPLACE: Upload your photo as "photo.jpg" to your repo, then change the line below to: <img src="photo.jpg" alt="Parth Rastogi"> -->
-        <span class="photo-initials">PR</span>
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero-section">
+    <div class="hero-card anim scale-in">
+      <div class="hero-photo">
+        <div class="photo-frame">
+          <span class="photo-initials">PR</span>
+        </div>
+        <div class="hero-photo-name">Parth Rastogi</div>
+        <div class="hero-photo-title">Regulatory Affairs Specialist</div>
+        <div class="hero-photo-location">Carteret, NJ</div>
+        <div class="hero-photo-badges">
+          <span>RAPS Member</span>
+          <span>MS Reg. Affairs · NEU</span>
+        </div>
       </div>
-      <div class="hero-photo-name">Parth Rastogi</div>
-      <div class="hero-photo-title">Regulatory Affairs Specialist</div>
-      <div class="hero-photo-location">Carteret, NJ</div>
-      <div class="hero-photo-badges">
-        <span>F-1 OPT / STEM</span>
-        <span>RAPS Member</span>
-        <span>Open to Work</span>
-      </div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-badge">Regulatory Affairs & Quality Assurance</div>
-      <h1>Parth Rastogi</h1>
-      <p class="hero-sub">MS Regulatory Affairs · Northeastern University</p>
-      <p class="hero-sub" style="font-size:0.92rem;">BioPharmaceuticals · Medical Devices · Global Submissions</p>
-      <div class="hero-tags">
-        <span>FDA</span><span>EU MDR</span><span>CTD/eCTD</span><span>ISO 13485</span>
-        <span>510(k)</span><span>cGMP</span><span>Veeva Vault RIM</span><span>eSTAR</span>
-      </div>
-      <div class="hero-btns">
-        <a href="#contact" class="btn btn-primary">Get in Touch</a>
-        <a href="#experience" class="btn btn-outline">View Experience</a>
+      <div class="hero-content">
+        <div class="hero-badge">Regulatory Affairs & Quality Assurance</div>
+        <h1>Parth Rastogi</h1>
+        <p class="hero-sub">MS Regulatory Affairs · Northeastern University</p>
+        <p class="hero-sub" style="font-size:0.9rem;">BioPharmaceuticals · Medical Devices · Global Submissions</p>
+        <div class="hero-tags">
+          <span>FDA</span><span>EU MDR</span><span>CTD/eCTD</span><span>ISO 13485</span>
+          <span>510(k)</span><span>cGMP</span><span>Veeva Vault RIM</span><span>eSTAR</span>
+        </div>
+        <div class="hero-btns">
+          <a href="#contact" class="btn btn-primary">Connect</a>
+          <a href="#experience" class="btn btn-outline">View Experience</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- STATS -->
-<div class="stats-row">
-  <div class="stat-card fade-up"><div class="stat-num">2+</div><div class="stat-label">Years Experience</div></div>
-  <div class="stat-card fade-up"><div class="stat-num">15+</div><div class="stat-label">Products Submitted</div></div>
-  <div class="stat-card fade-up"><div class="stat-num">10+</div><div class="stat-label">Countries</div></div>
-  <div class="stat-card fade-up"><div class="stat-num">3</div><div class="stat-label">Academic Projects</div></div>
+<div class="stats-section">
+  <div class="stats-row stagger-children" id="stats-row">
+    <div class="stat-card anim-child"><div class="stat-num" data-count="2">0</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat-card anim-child"><div class="stat-num" data-count="15">0</div><div class="stat-label">Products Submitted</div></div>
+    <div class="stat-card anim-child"><div class="stat-num" data-count="10">0</div><div class="stat-label">Countries</div></div>
+    <div class="stat-card anim-child"><div class="stat-num" data-count="3">0</div><div class="stat-label">Publications</div></div>
+  </div>
 </div>
 
 <!-- ABOUT -->
-<div class="fw-section" id="about">
-  <div class="fw-card fade-up">
-    <div class="section-label">About</div>
-    <div class="section-title">Bridging the lab and the regulator.</div>
-    <div class="about-text">
-      <p>Regulatory Affairs Specialist with <strong>2+ years of experience</strong> managing regulatory submissions, ensuring FDA and global regulatory compliance, and developing submission strategies for pharmaceutical and medical device products. My approach is <strong>"technical-first"</strong> — translating complex clinical data and global requirements into successful regulatory approvals.</p>
-      <p>At <strong>AXA Parenterals</strong>, I led submissions for 15+ sterile injectable products across 10+ countries, achieving first-time approvals in CTD & ACTD formats. At <strong>Virtuleap</strong>, I developed clinical study protocols for a Class II VR medical device ensuring full FDA and ICH GCP compliance.</p>
-      <p>Currently at <strong>Rebecca Everlene Trust Company</strong>, I contribute regulatory expertise to grant proposals, author white papers, and develop regulatory and technical documents aligned with Good Documentation Practices.</p>
-    </div>
-    <div class="about-info-grid">
-      <div class="about-info-item"><span class="dot"></span>Open to Opportunities</div>
-      <div class="about-info-item"><span class="dot"></span>Carteret, NJ</div>
-      <div class="about-info-item"><span class="dot"></span>MS Regulatory Affairs · NEU</div>
-      <div class="about-info-item"><span class="dot"></span>RAPS · ACS · SPER · ISPE</div>
-    </div>
+<div class="section-divider"><hr></div>
+<div class="section anim" id="about">
+  <div class="section-label">About</div>
+  <div class="section-title">Summary</div>
+  <div class="about-text">
+    <p>Regulatory Affairs Specialist with <strong>2+ years of experience</strong> managing regulatory submissions, ensuring FDA and global regulatory compliance, and developing submission strategies for pharmaceutical and medical device products. My approach is <strong>"technical-first"</strong> — translating complex clinical data and global requirements into successful regulatory approvals.</p>
+    <p>At <strong>AXA Parenterals</strong>, I led submissions for 15+ sterile injectable products across 10+ countries, achieving first-time approvals in CTD & ACTD formats. Currently at <strong>Rebecca Everlene Trust Company</strong>, I contribute regulatory expertise to grant proposals, author white papers, and develop regulatory and technical documents aligned with Good Documentation Practices.</p>
+    <p>I also volunteer as a <strong>Medical Writer at Med Report Foundation</strong>, translating complex clinical and pharmacological information into clear, evidence-based content. I am passionate about streamlining the regulatory process to bring life-saving therapies to patients faster.</p>
+  </div>
+  <div class="about-info-grid">
+    <div class="about-info-item"><span class="dot"></span>Open to Opportunities</div>
+    <div class="about-info-item"><span class="dot"></span>Carteret, NJ</div>
+    <div class="about-info-item"><span class="dot"></span>MS Regulatory Affairs · NEU</div>
+    <div class="about-info-item"><span class="dot"></span>RAPS · ACS · SPER · ISPE</div>
   </div>
 </div>
 
 <!-- EXPERIENCE -->
-<div class="fw-section" id="experience">
-  <div class="fw-card fade-up">
-    <div class="section-label">Work History</div>
-    <div class="section-title">Professional Experience</div>
-    <div class="exp-cards">
-
-      <div class="exp-card">
-        <div class="exp-top">
-          <div class="exp-left">
-            <div class="exp-logo"><img src="logo-retc.png" alt="RETC"></div>
-            <div><div class="exp-company">Rebecca Everlene Trust Company</div><div class="exp-location">Chicago, IL (Remote)</div></div>
-          </div>
-        </div>
-        <div class="exp-role">Regulatory Affairs Specialist</div>
-        <div class="exp-date">Sep 2025 – Present</div>
-        <span class="exp-tag">Regulatory Writing · Grant Proposals</span>
-        <ul class="exp-bullets">
-          <li>Contributing regulatory expertise to grant proposals, ensuring alignment with organizational policies and global compliance standards.</li>
-          <li>Developing and reviewing regulatory and technical documents, enhancing accuracy and adherence to Good Documentation Practices (GDP).</li>
-          <li>Authoring white papers translating complex regulatory requirements and technical data into clear, strategic narratives.</li>
-        </ul>
+<div class="section-divider"><hr></div>
+<div class="section anim" id="experience">
+  <div class="section-label">Work History</div>
+  <div class="section-title">Professional Experience</div>
+  <div class="exp-cards stagger-children" id="exp-stagger">
+    <div class="exp-card anim-child">
+      <div class="exp-top">
+        <div class="exp-logo"><img src="logo-retc.png" alt="RETC"></div>
+        <div><div class="exp-company">Rebecca Everlene Trust Company</div><div class="exp-location">Chicago, IL (Remote)</div></div>
       </div>
-
-      <div class="exp-card">
-        <div class="exp-top">
-          <div class="exp-left">
-            <div class="exp-logo"><img src="logo-virtuleap.png" alt="Virtuleap"></div>
-            <div><div class="exp-company">Virtuleap</div><div class="exp-location">Boston, MA</div></div>
-          </div>
-        </div>
-        <div class="exp-role">Regulatory & Clinical Research Intern</div>
-        <div class="exp-date">Apr 2025 – Jun 2025</div>
-        <span class="exp-tag">Class II VR Device · FDA · ICH GCP</span>
-        <ul class="exp-bullets">
-          <li>Collaborated with cross-functional teams to develop a clinical study protocol for a Class II VR medical device, ensuring 100% compliance with FDA 21 CFR 812, ICH GCP, and ISO 14155.</li>
-          <li>Authored clinical study protocols including objectives, endpoints, and inclusion/exclusion criteria; managed IRB submissions and HIPAA compliance.</li>
-          <li>Conducted regulatory research on device classification and predicate device analysis to support submission strategy.</li>
-        </ul>
+      <div class="exp-role">Regulatory Affairs Specialist</div>
+      <div class="exp-date">Sep 2025 – Present</div>
+      <span class="exp-tag">Regulatory Writing · Grant Proposals</span>
+      <ul class="exp-bullets">
+        <li>Contributing regulatory expertise to grant proposals, ensuring alignment with organizational policies and global compliance standards.</li>
+        <li>Developing and reviewing regulatory and technical documents, enhancing accuracy and adherence to Good Documentation Practices (GDP).</li>
+        <li>Authoring white papers translating complex regulatory requirements and technical data into clear, strategic narratives.</li>
+      </ul>
+    </div>
+    <div class="exp-card anim-child">
+      <div class="exp-top">
+        <div class="exp-logo"><img src="logo-axa.png" alt="AXA"></div>
+        <div><div class="exp-company">AXA Parenterals Ltd.</div><div class="exp-location">Roorkee, India</div></div>
       </div>
-
-      <div class="exp-card">
-        <div class="exp-top">
-          <div class="exp-left">
-            <div class="exp-logo"><img src="logo-axa.png" alt="AXA Parenterals"></div>
-            <div><div class="exp-company">AXA Parenterals Ltd.</div><div class="exp-location">Roorkee, India</div></div>
-          </div>
-        </div>
-        <div class="exp-role">Drug Regulatory Affairs Officer</div>
-        <div class="exp-date">Jul 2021 – Aug 2023</div>
-        <span class="exp-tag">Sterile Injectables · CTD/ACTD · Global</span>
-        <ul class="exp-bullets">
-          <li>Achieved first-time approval by leading regulatory submissions for 15+ sterile injectable products across 10+ countries (US, LATAM, Asia, and Africa).</li>
-          <li>Compiled and submitted Module 1, Module 2 & Module 3 (CMC) documentation in alignment with ICH Q8–Q10 and FDA guidelines.</li>
-          <li>Coordinated cross-functional inputs from QA, Manufacturing, and R&D teams to meet submission timelines and maintain cGMP compliance.</li>
-        </ul>
+      <div class="exp-role">Drug Regulatory Affairs Officer</div>
+      <div class="exp-date">Jul 2021 – Aug 2023</div>
+      <span class="exp-tag">Sterile Injectables · CTD/ACTD · Global Submissions</span>
+      <ul class="exp-bullets">
+        <li>Achieved first-time approval by leading regulatory submissions for 15+ sterile injectable products across 10+ countries (US, LATAM, Asia, and Africa).</li>
+        <li>Compiled and submitted Module 1, Module 2 & Module 3 (CMC) documentation in alignment with ICH Q8–Q10 and FDA guidelines.</li>
+        <li>Coordinated cross-functional inputs from QA, Manufacturing, and R&D teams to meet submission timelines and maintain cGMP compliance.</li>
+      </ul>
+    </div>
+    <div class="exp-card anim-child">
+      <div class="exp-top">
+        <div class="exp-logo"><img src="logo-himalaya.png" alt="Himalaya"></div>
+        <div><div class="exp-company">Himalaya Wellness Company</div><div class="exp-location">Dehradun, India</div></div>
       </div>
+      <div class="exp-role">Quality Assurance Research Analyst</div>
+      <div class="exp-date">Oct 2017 – Mar 2018</div>
+      <span class="exp-tag">GMP · Herbal Drug QC · 21 CFR Part 111</span>
+      <ul class="exp-bullets">
+        <li>Performed GMP documentation reviews ensuring accuracy and compliance with internal and regulatory standards.</li>
+        <li>Evaluated quality data and technical documents to support regulatory and audit readiness.</li>
+        <li>Maintained organized, audit-ready records contributing to successful quality inspections.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-      <div class="exp-card">
-        <div class="exp-top">
-          <div class="exp-left">
-            <div class="exp-logo"><img src="logo-himalaya.png" alt="Himalaya"></div>
-            <div><div class="exp-company">Himalaya Wellness Company</div><div class="exp-location">Dehradun, India</div></div>
-          </div>
-        </div>
-        <div class="exp-role">Quality Assurance Research Analyst</div>
-        <div class="exp-date">Oct 2017 – Mar 2018</div>
-        <span class="exp-tag">GMP · Herbal Drug QC · 21 CFR Part 111</span>
-        <ul class="exp-bullets">
-          <li>Performed GMP documentation reviews ensuring accuracy and compliance with internal and regulatory standards.</li>
-          <li>Evaluated quality data and technical documents to support regulatory and audit readiness.</li>
-          <li>Maintained organized, audit-ready records contributing to successful quality inspections.</li>
-        </ul>
+<!-- VOLUNTEER -->
+<div class="section-divider"><hr></div>
+<div class="section anim" id="volunteer">
+  <div class="section-label">Volunteer Experience</div>
+  <div class="section-title">Giving Back to Healthcare</div>
+  <div class="exp-cards">
+    <div class="exp-card">
+      <div class="exp-top">
+        <div class="exp-logo"><img src="logo-mrf.png" alt="Med Report Foundation"></div>
+        <div><div class="exp-company">Med Report Foundation</div><div class="exp-location">Remote</div></div>
       </div>
-
+      <div class="exp-role">Medical Writer (Volunteer)</div>
+      <div class="exp-date">Present</div>
+      <span class="exp-tag">Medical Writing · Evidence-Based Content</span>
+      <ul class="exp-bullets">
+        <li>Produced high-quality medical and scientific content using peer-reviewed literature and clinical data, ensuring accuracy and evidence-based reporting.</li>
+        <li>Translated complex clinical and pharmacological information into clear, patient-centric content, improving readability and audience engagement.</li>
+        <li>Performed structured literature searches and data synthesis (PubMed, journals) to support medically accurate and up-to-date content creation.</li>
+      </ul>
     </div>
   </div>
 </div>
 
 <!-- SKILLS -->
-<div class="fw-section" id="skills">
-  <div class="fw-card fade-up">
-    <div class="section-label">Core Competencies</div>
-    <div class="section-title">Skills & Expertise</div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>Regulatory Submissions</h3>
-        <div class="skill-tags">
-          <span>CTD/eCTD/ACTD</span><span>NDA/ANDA</span><span>IND</span>
-          <span>510(k)</span><span>PMA</span><span>eSTAR</span>
-          <span>EU MDR</span><span>CE Marking</span><span>MDSAP</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>Compliance & Quality</h3>
-        <div class="skill-tags">
-          <span>FDA 21 CFR</span><span>cGMP (210/211)</span><span>ISO 13485</span>
-          <span>ISO 14971</span><span>ICH Q8–Q10</span><span>QMS</span>
-          <span>Change Control</span><span>CAPA</span><span>Gap Analysis</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Safety & Surveillance</h3>
-        <div class="skill-tags">
-          <span>Pharmacovigilance</span><span>AE/SAE Reporting</span>
-          <span>FAERS/REMS</span><span>Signal Detection</span>
-          <span>Post-Market Surveillance</span><span>Labeling (21 CFR 201)</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>Tools & Platforms</h3>
-        <div class="skill-tags">
-          <span>Veeva Vault RIM</span><span>ArisGlobal LifeSphere</span>
-          <span>Greenlight Guru</span><span>SharePoint</span>
-          <span>Adobe Acrobat</span><span>MS Office</span><span>SPL/XML</span>
-        </div>
-      </div>
+<div class="section-divider"><hr></div>
+<div class="section anim" id="skills">
+  <div class="section-label">Core Competencies</div>
+  <div class="section-title">Skills & Expertise</div>
+  <div class="skills-grid stagger-children" id="skills-stagger">
+    <div class="skill-card anim-child">
+      <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>Regulatory Submissions</h3>
+      <div class="skill-tags"><span>CTD/eCTD/ACTD</span><span>NDA/ANDA</span><span>IND</span><span>510(k)</span><span>PMA</span><span>eSTAR</span><span>EU MDR</span><span>CE Marking</span><span>MDSAP</span></div>
+    </div>
+    <div class="skill-card anim-child">
+      <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>Compliance & Quality</h3>
+      <div class="skill-tags"><span>FDA 21 CFR</span><span>cGMP (210/211)</span><span>ISO 13485</span><span>ISO 14971</span><span>ICH Q8–Q10</span><span>QMS</span><span>Change Control</span><span>CAPA</span><span>Gap Analysis</span></div>
+    </div>
+    <div class="skill-card anim-child">
+      <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Safety & Surveillance</h3>
+      <div class="skill-tags"><span>Pharmacovigilance</span><span>AE/SAE Reporting</span><span>FAERS/REMS</span><span>Signal Detection</span><span>Post-Market Surveillance</span><span>Labeling (21 CFR 201)</span></div>
+    </div>
+    <div class="skill-card anim-child">
+      <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>Tools & Platforms</h3>
+      <div class="skill-tags"><span>Veeva Vault RIM</span><span>ArisGlobal LifeSphere</span><span>Greenlight Guru</span><span>SharePoint</span><span>Adobe Acrobat</span><span>MS Office</span><span>SPL/XML</span></div>
     </div>
   </div>
 </div>
 
 <!-- PROJECTS -->
-<div class="fw-section" id="projects">
-  <div class="fw-card fade-up">
-    <div class="section-label">Academic Work</div>
-    <div class="section-title">Key Projects</div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-num">Project 01</div>
-        <h3>Global Regulatory Strategy — Class III Medical Device</h3>
-        <p>Developed a regulatory strategy across the U.S. (PMA), EU (CE marking), Canada (MDL), Australia (TGA), Mexico (COFEPRIS), and Singapore (HSA) for market access.</p>
-      </div>
-      <div class="project-card">
-        <div class="project-num">Project 02</div>
-        <h3>eSTAR Submission — IVD Medical Device</h3>
-        <p>Designed and prepared a mock eSTAR submission for 510(k) of an in-vitro diagnostic device intended for infectious disease detection.</p>
-      </div>
-      <div class="project-card">
-        <div class="project-num">Project 03</div>
-        <h3>FAERS Data & REMS Analysis</h3>
-        <p>Evaluated adverse event databases to develop risk mitigation strategies and improved pharmacovigilance compliance through data-driven safety assessments.</p>
-      </div>
+<div class="section-divider"><hr></div>
+<div class="section anim" id="projects">
+  <div class="section-label">Selected Work</div>
+  <div class="section-title">Capstone & Academic Projects</div>
+  <div class="capstone-card">
+    <span class="capstone-label">Capstone Project · Northeastern University</span>
+    <h3>Regulatory & Clinical Research — VR Medical Device (Virtuleap)</h3>
+    <div class="cap-sub">Regulatory & Clinical Research Intern · Virtuleap, Boston, MA</div>
+    <div class="cap-date">Apr 2025 – Jun 2025</div>
+    <ul class="exp-bullets">
+      <li>Collaborated with cross-functional teams to develop a clinical study protocol for a Class II VR medical device, ensuring 100% compliance with FDA 21 CFR 812, ICH GCP, and ISO 14155.</li>
+      <li>Authored clinical study protocols including objectives, endpoints, and inclusion/exclusion criteria; managed IRB submissions and HIPAA compliance for a 510(k)-exempt regulatory pathway.</li>
+      <li>Conducted regulatory research on device classification and predicate device analysis to support the regulatory submission strategy.</li>
+    </ul>
+  </div>
+  <div class="projects-grid stagger-children" id="proj-stagger">
+    <div class="project-card anim-child">
+      <div class="project-num">Project 01</div>
+      <h3>Global Regulatory Strategy — Class III Medical Device</h3>
+      <p>Developed a regulatory strategy across the U.S. (PMA), EU (CE marking), Canada (MDL), Australia (TGA), Mexico (COFEPRIS), and Singapore (HSA) for market access.</p>
+    </div>
+    <div class="project-card anim-child">
+      <div class="project-num">Project 02</div>
+      <h3>eSTAR Submission — IVD Medical Device</h3>
+      <p>Designed and prepared a mock eSTAR submission for 510(k) of an in-vitro diagnostic device intended for infectious disease detection.</p>
+    </div>
+    <div class="project-card anim-child">
+      <div class="project-num">Project 03</div>
+      <h3>FAERS Data & REMS Analysis</h3>
+      <p>Evaluated adverse event databases to develop risk mitigation strategies and improved pharmacovigilance compliance through data-driven safety assessments.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<div class="section-divider"><hr></div>
+<div class="section anim" id="publications">
+  <div class="section-label">Research</div>
+  <div class="section-title">Publications</div>
+  <div class="pub-list stagger-children" id="pub-stagger">
+    <div class="pub-item anim-child">
+      <div class="pub-num">Publication 01</div>
+      <div class="pub-title">An update on potential therapeutic actions of Boswellic acids</div>
+      <div class="pub-journal">International Journal of Pharmaceutical Sciences and Research, 2021; 12(10): 5238-52</div>
+      <div class="pub-doi">Rastogi P, Dwivedi PK · DOI: <a href="#" target="_blank">10.13040/IJPSR.0975-8232.12(10).5238-52</a></div>
+    </div>
+    <div class="pub-item anim-child">
+      <div class="pub-num">Publication 02</div>
+      <div class="pub-title">An overview of recent studies on antibacterial, antifungal, antiviral and antioxidant potential of Tagetes patula</div>
+      <div class="pub-journal">YMER, 2022; 21(11)</div>
+      <div class="pub-doi">Rastogi P, Dwivedi PK · DOI: <a href="#" target="_blank">10.37896/YMER21.11/03</a></div>
+    </div>
+    <div class="pub-item anim-child">
+      <div class="pub-num">Publication 03</div>
+      <div class="pub-title">An evidence-based update on the pharmacological activities of Tagetes patula</div>
+      <div class="pub-journal">YMER, 2022; 21(11)</div>
+      <div class="pub-doi">Rastogi P, Dwivedi PK · DOI: <a href="#" target="_blank">10.37896/YMER21.11/15</a></div>
     </div>
   </div>
 </div>
 
 <!-- EDUCATION -->
-<div class="fw-section" id="education">
-  <div class="fw-card fade-up">
-    <div class="section-label">Academic Background</div>
-    <div class="section-title">Education</div>
-    <div class="edu-grid">
-      <div class="edu-card">
-        <div class="edu-top">
-          <div class="edu-logo"><img src="logo-neu.png" alt="Northeastern University"></div>
-          <div>
-            <div class="edu-degree">MS — Regulatory Affairs</div>
-            <div class="edu-school">Northeastern University · Boston, MA</div>
-          </div>
-        </div>
-        <div class="edu-date">Sep 2023 – Jun 2025</div>
-        <div class="edu-detail">Regulatory Compliance, Medical Device Development, International Regulations, Strategic Planning, Process Validation, Cybersecurity in Digital Health.</div>
+<div class="section-divider"><hr></div>
+<div class="section anim" id="education">
+  <div class="section-label">Academic Background</div>
+  <div class="section-title">Education</div>
+  <div class="edu-grid stagger-children" id="edu-stagger">
+    <div class="edu-card anim-child">
+      <div class="edu-top">
+        <div class="edu-logo"><img src="logo-neu.png" alt="NEU"></div>
+        <div><div class="edu-degree">MS — Regulatory Affairs</div><div class="edu-school">Northeastern University · Boston, MA</div></div>
       </div>
-      <div class="edu-card">
-        <div class="edu-top">
-          <div class="edu-logo"><img src="logo-amity.png" alt="Amity University"></div>
-          <div>
-            <div class="edu-degree">Master of Pharmacology</div>
-            <div class="edu-school">Amity University · Lucknow, India</div>
-          </div>
-        </div>
-        <div class="edu-date">Apr 2019 – Mar 2021</div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-top">
-          <div class="edu-logo"><img src="logo-amity.png" alt="Amity University"></div>
-          <div>
-            <div class="edu-degree">Bachelor of Pharmacy</div>
-            <div class="edu-school">Amity University · Lucknow, India</div>
-          </div>
-        </div>
-        <div class="edu-date">Apr 2014 – Mar 2018</div>
-      </div>
+      <div class="edu-date">Sep 2023 – Jun 2025</div>
+      <div class="edu-detail">Regulatory Compliance, Medical Device Development, International Regulations, Strategic Planning, Process Validation, Cybersecurity in Digital Health.</div>
     </div>
-
-    <div class="section-label" style="margin-top:36px;">Professional Affiliations</div>
-    <div class="affiliations-grid">
-      <div class="aff-card">
-        <div class="aff-logo"><img src="logo-raps.png" alt="RAPS"></div>
-        <div class="aff-name">RAPS</div>
-        <div class="aff-type">Student Member</div>
+    <div class="edu-card anim-child">
+      <div class="edu-top">
+        <div class="edu-logo"><img src="logo-amity.png" alt="Amity"></div>
+        <div><div class="edu-degree">Master of Pharmacology</div><div class="edu-school">Amity University · Lucknow, India</div></div>
       </div>
-      <div class="aff-card">
-        <div class="aff-logo"><img src="logo-acs.png" alt="ACS"></div>
-        <div class="aff-name">ACS</div>
-        <div class="aff-type">Member</div>
-      </div>
-      <div class="aff-card">
-        <div class="aff-logo"><img src="logo-sper.png" alt="SPER"></div>
-        <div class="aff-name">SPER</div>
-        <div class="aff-type">Life Member</div>
-      </div>
-      <div class="aff-card">
-        <div class="aff-logo"><img src="logo-ispe.png" alt="ISPE"></div>
-        <div class="aff-name">ISPE</div>
-        <div class="aff-type">Member</div>
-      </div>
+      <div class="edu-date">Apr 2019 – Mar 2021</div>
     </div>
+    <div class="edu-card anim-child">
+      <div class="edu-top">
+        <div class="edu-logo"><img src="logo-amity.png" alt="Amity"></div>
+        <div><div class="edu-degree">Bachelor of Pharmacy</div><div class="edu-school">Amity University · Lucknow, India</div></div>
+      </div>
+      <div class="edu-date">Apr 2014 – Mar 2018</div>
+    </div>
+  </div>
+  <div class="section-label" style="margin-top:32px;">Professional Affiliations</div>
+  <div class="affiliations-grid stagger-children" id="aff-stagger">
+    <div class="aff-card anim-child"><div class="aff-logo"><img src="logo-raps.png" alt="RAPS"></div><div class="aff-name">RAPS</div><div class="aff-type">Student Member</div></div>
+    <div class="aff-card anim-child"><div class="aff-logo"><img src="logo-acs.png" alt="ACS"></div><div class="aff-name">ACS</div><div class="aff-type">Member</div></div>
+    <div class="aff-card anim-child"><div class="aff-logo"><img src="logo-sper.png" alt="SPER"></div><div class="aff-name">SPER</div><div class="aff-type">Life Member</div></div>
+    <div class="aff-card anim-child"><div class="aff-logo"><img src="logo-ispe.png" alt="ISPE"></div><div class="aff-name">ISPE</div><div class="aff-type">Member</div></div>
   </div>
 </div>
 
 <!-- CONTACT -->
-<div class="fw-section" id="contact">
-  <div class="fw-card fade-up">
-    <div class="contact-inner">
-      <div class="section-label">Get in Touch</div>
-      <div class="section-title">Let's Connect.</div>
-      <p class="contact-sub">Seeking roles in Regulatory Affairs, Quality Assurance, and Clinical Research across the U.S.</p>
-      <div class="contact-grid">
-        <a href="mailto:rastogiparth.pr@gmail.com" class="contact-card">
-          <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div class="contact-card-label">Email</div>
-          <div class="contact-card-value">rastogiparth.pr@gmail.com</div>
-        </a>
-        <a href="https://www.linkedin.com/in/rastogi-parth/" target="_blank" class="contact-card">
-          <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
-          <div class="contact-card-label">LinkedIn</div>
-          <div class="contact-card-value">rastogi-parth</div>
-        </a>
-        <a href="tel:+18575065283" class="contact-card">
-          <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-          <div class="contact-card-label">Phone</div>
-          <div class="contact-card-value">+1 (857) 506-5283</div>
-        </a>
-      </div>
+<div class="section-divider"><hr></div>
+<div class="section anim" id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Get in Touch</div>
+    <div class="section-title">Let's Connect.</div>
+    <p class="contact-sub">Seeking roles in Regulatory Affairs, Quality Assurance, and Clinical Research across the U.S.</p>
+    <div class="contact-grid stagger-children" id="contact-stagger">
+      <a href="mailto:rastogiparth.pr@gmail.com" class="contact-card anim-child">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-value">rastogiparth.pr@gmail.com</div>
+      </a>
+      <a href="https://www.linkedin.com/in/rastogi-parth/" target="_blank" class="contact-card anim-child">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <div class="contact-card-label">LinkedIn</div>
+        <div class="contact-card-value">rastogi-parth</div>
+      </a>
+      <a href="tel:+18575065283" class="contact-card anim-child">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="contact-card-label">Phone</div>
+        <div class="contact-card-value">+1 (857) 506-5283</div>
+      </a>
     </div>
   </div>
 </div>
 
-<footer>
-  &copy; 2026 Parth Rastogi · Regulatory Affairs & Quality Assurance · Carteret, NJ
-</footer>
+<footer>&copy; 2026 Parth Rastogi · Regulatory Affairs & Quality Assurance · Carteret, NJ</footer>
 
 <script>
+// Navbar scroll
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+// Mobile menu
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-const sections = document.querySelectorAll('[id]');
+
+// Smooth scroll with offset + section flash
+navLinks.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = link.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+    const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+
+    // Ripple on nav link
+    const rect = link.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'nav-ripple';
+    ripple.style.width = ripple.style.height = '10px';
+    ripple.style.left = (rect.width / 2 - 5) + 'px';
+    ripple.style.top = (rect.height / 2 - 5) + 'px';
+    link.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 500);
+
+    // Flash target section
+    setTimeout(() => {
+      target.classList.add('section-flash');
+      setTimeout(() => target.classList.remove('section-flash'), 700);
+    }, 400);
+  });
+});
+
+// Active link tracking
+const allSections = document.querySelectorAll('.section[id]');
 window.addEventListener('scroll', () => {
   let current = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
-  navLinks.querySelectorAll('a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  allSections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 160) current = s.id;
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
 });
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-</script>
 
+// Scroll animations
+const animObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      if (entry.target.classList.contains('stagger-children')) {
+        entry.target.querySelectorAll('.anim-child').forEach((child, i) => {
+          setTimeout(() => { child.style.opacity = '1'; child.style.transform = 'translateY(0)'; }, i * 100);
+        });
+      }
+      animObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.anim, .stagger-children').forEach(el => animObs.observe(el));
+
+// Counter animation
+const cObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.stat-num[data-count]').forEach(num => {
+        const t = parseInt(num.dataset.count);
+        let c = 0;
+        const step = Math.max(1, Math.floor(t / 20));
+        const iv = setInterval(() => { c += step; if (c >= t) { c = t; clearInterval(iv); } num.textContent = c + '+'; }, 50);
+      });
+      cObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+const sr = document.getElementById('stats-row');
+if (sr) cObs.observe(sr);
+</script>
 </body>
 </html>
