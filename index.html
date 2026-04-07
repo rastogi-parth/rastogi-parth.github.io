@@ -44,8 +44,11 @@ nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-sh
 .section-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);margin-bottom:8px}
 .section-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:36px;color:var(--text);display:inline-block;position:relative;padding-bottom:8px}
 .section-title::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:2px}
-.hero-wrap{background:var(--bg)}
+.hero-wrap{background:var(--bg);position:relative;min-height:100vh}
 .hero-section{padding:0;max-width:100%;margin:0}
+.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:10;opacity:0.7;animation:scrollBounce 2s ease-in-out infinite;cursor:pointer}
+.hero-scroll span{font-size:0.68rem;color:var(--text-muted);font-weight:500;letter-spacing:1px;text-transform:uppercase}
+.hero-scroll svg{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2}
 .hero-card{background:var(--card);border-radius:0;box-shadow:none;border:none;overflow:hidden;display:grid;grid-template-columns:320px 1fr;min-height:100vh}
 .hero-photo{background:linear-gradient(160deg,#0f172a 0%,#1e3a5f 50%,#0369a1 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 24px;text-align:center;position:relative;overflow:hidden}
 .hero-photo::before{content:'';position:absolute;top:-80px;right:-80px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.05);animation:float 7s ease-in-out infinite}
@@ -65,7 +68,6 @@ nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-sh
 .scroll-indicator span{font-size:0.68rem;color:var(--text-muted);font-weight:500;letter-spacing:1px;text-transform:uppercase}
 .scroll-indicator svg{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2}
 @keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-
 .hero-content{padding:44px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:#fff}
 .hero-bg-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:url('bg-healthcare.png') center bottom/cover no-repeat;opacity:0.5;pointer-events:none}
 .hero-badge{display:inline-block;padding:5px 14px;background:var(--primary-light);color:var(--primary-dark);border-radius:50px;font-size:0.73rem;font-weight:600;margin-bottom:18px;width:fit-content;letter-spacing:0.5px}
@@ -82,8 +84,8 @@ nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-sh
 .btn-dark:hover{background:#0f172a;transform:translateY(-2px);box-shadow:0 6px 20px rgba(15,23,42,0.3)}
 .btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
 .btn-outline:hover{background:var(--primary-light);transform:translateY(-2px)}
-.stats-section{max-width:1100px;margin:0 auto;padding:0 24px}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-bottom:24px}
+.stats-section{max-width:1100px;margin:0 auto;padding:24px 24px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .stat-card{padding:20px;text-align:center;border-radius:var(--radius);background:var(--bg-alt);border:1px solid var(--border);transition:all 0.4s var(--ease);cursor:pointer;text-decoration:none;display:block;color:var(--text)}
 .stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);background:#fff}
 .stat-num{font-size:1.8rem;font-weight:800;color:var(--primary);line-height:1}
@@ -252,11 +254,14 @@ footer{text-align:center;padding:20px 24px;font-size:0.77rem;color:var(--text-mu
 <p class="hero-sub" style="font-size:0.9rem;">BioPharmaceuticals · Medical Devices · Global Submissions</p>
 <div class="hero-tags"><span>FDA</span><span>EU MDR</span><span>CTD/eCTD</span><span>ISO 13485</span><span>510(k)</span><span>cGMP</span><span>Veeva Vault RIM</span><span>eSTAR</span></div>
 <div class="hero-btns"><a href="#contact" class="btn btn-dark">Connect</a><a href="#experience" class="btn btn-outline">View Experience</a></div>
-<div class="scroll-indicator"><span>Scroll</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
 </div>
 </div>
-</div></div></div>
+</div></div>
+<div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth',block:'start'})"><span>Scroll</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+</div>
 
+<div style="height:48px;"></div>
+<div class="section-divider"><div class="dbl-line"></div></div>
 <div class="stats-section"><div class="stats-row stagger-children" id="stats-row">
 <a href="#experience" class="stat-card anim-child"><div class="stat-num" data-count="2">0</div><div class="stat-label">Years Experience</div></a>
 <a href="#experience" class="stat-card anim-child"><div class="stat-num" data-count="15">0</div><div class="stat-label">Products Submitted</div></a>
