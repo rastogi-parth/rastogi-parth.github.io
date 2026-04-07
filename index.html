@@ -530,9 +530,28 @@ footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-mu
   <div class="section-label">Professional Credentials</div>
   <div class="section-title">Licenses & Certifications</div>
   <div class="cert-grid stagger-children" id="cert-stagger">
-    <div class="cert-placeholder anim-child">+ Add Certification</div>
-    <div class="cert-placeholder anim-child">+ Add Certification</div>
+
+    <div class="cert-card anim-child">
+      <h3><span class="cert-icon" style="width:36px;height:36px;border-radius:8px;background:#fff;border:1px solid var(--border);padding:4px;"><img src="logo-citi.png" alt="CITI" style="width:100%;height:100%;object-fit:contain;"></span>CITI Program</h3>
+      <div class="cert-tags">
+        <div class="cert-tag" onclick="openCertModal('Conflict of Interest','cert-citi-coi.png')">Conflict of Interest<span>Sep 2025 – Sep 2029</span></div>
+        <div class="cert-tag" onclick="openCertModal('GCP for Clinical Investigations of Devices','cert-citi-gcp.png')">GCP for Clinical Investigations of Devices<span>Nov 2025 – Nov 2028</span></div>
+      </div>
+    </div>
+
   </div>
+</div>
+
+<!-- Certificate Modal -->
+<div class="cert-modal-overlay" id="certModal" onclick="closeCertModal(event)">
+  <div class="cert-modal">
+    <div class="cert-modal-header">
+      <div class="cert-modal-title" id="certModalTitle"></div>
+      <button class="cert-modal-close" onclick="closeCertModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="cert-modal-body" id="certModalBody"></div>
+  </div>
+</div>
 </div>
 
 <!-- CONTACT (full grey bg) -->
@@ -637,6 +656,27 @@ const cObs=new IntersectionObserver((entries)=>{
   });
 },{threshold:0.5});
 const sr=document.getElementById('stats-row');if(sr)cObs.observe(sr);
+
+// Certificate Modal
+function openCertModal(title,imgFile){
+  const modal=document.getElementById('certModal');
+  document.getElementById('certModalTitle').textContent=title;
+  const body=document.getElementById('certModalBody');
+  const img=new Image();
+  img.src=imgFile;
+  img.alt=title;
+  img.onload=function(){body.innerHTML='';body.appendChild(img);};
+  img.onerror=function(){body.innerHTML='<div class="cert-modal-placeholder">Certificate image will be added soon.<br><br>Upload <strong>'+imgFile+'</strong> to your GitHub repo.</div>';};
+  body.innerHTML='<div class="cert-modal-placeholder">Loading...</div>';
+  modal.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeCertModal(e){
+  if(e&&e.target!==e.currentTarget&&!e.target.closest('.cert-modal-close'))return;
+  document.getElementById('certModal').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeCertModal();});
 </script>
 </body>
 </html>
