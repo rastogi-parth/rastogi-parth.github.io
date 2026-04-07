@@ -51,13 +51,13 @@ nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-sh
 .hero-photo::before{content:'';position:absolute;top:-80px;right:-80px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.05);animation:float 7s ease-in-out infinite}
 .hero-photo::after{content:'';position:absolute;bottom:-50px;left:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.03);animation:float 9s ease-in-out infinite reverse}
 @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-12px)}}
-.photo-frame{width:150px;height:150px;border-radius:16px;border:3px solid rgba(255,255,255,0.3);overflow:hidden;margin-bottom:18px;position:relative;z-index:1;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;transition:transform 0.5s var(--ease),border-color 0.4s}
-.photo-frame:hover{transform:scale(1.05);border-color:rgba(255,255,255,0.55);border-radius:20px}
+.photo-frame{width:240px;height:240px;border-radius:20px;border:3px solid rgba(255,255,255,0.3);overflow:hidden;margin-bottom:18px;position:relative;z-index:1;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;transition:transform 0.5s var(--ease),border-color 0.4s}
+.photo-frame:hover{transform:scale(1.03);border-color:rgba(255,255,255,0.55);border-radius:24px}
 .photo-frame img{width:100%;height:100%;object-fit:cover}
-.hero-photo-name{color:#fff;font-weight:700;font-size:1.2rem;margin-bottom:3px;position:relative;z-index:1}
-.hero-photo-title{color:rgba(255,255,255,0.85);font-size:0.82rem;position:relative;z-index:1}
-.hero-photo-location{color:rgba(255,255,255,0.65);font-size:0.76rem;margin-top:5px;position:relative;z-index:1}
-.hero-photo-badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px;position:relative;z-index:1}
+.hero-photo-name{color:#fff;font-weight:700;font-size:1.2rem;margin-bottom:3px;position:relative;z-index:1;padding:0 24px}
+.hero-photo-title{color:rgba(255,255,255,0.85);font-size:0.82rem;position:relative;z-index:1;padding:0 24px}
+.hero-photo-location{color:rgba(255,255,255,0.65);font-size:0.76rem;margin-top:5px;position:relative;z-index:1;padding:0 24px}
+.hero-photo-badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px;position:relative;z-index:1;padding:0 24px}
 .hero-photo-badges span{padding:3px 11px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:50px;font-size:0.7rem;color:#fff;font-weight:500;transition:all 0.3s}
 .hero-photo-badges span:hover{background:rgba(255,255,255,0.22);transform:translateY(-1px)}
 .hero-content{padding:44px;display:flex;flex-direction:column;justify-content:center}
@@ -213,7 +213,7 @@ nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-sh
 .contact-card-value{font-weight:600;color:var(--text);font-size:0.82rem;word-break:break-all}
 footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-muted);background:#e2e8f0;border-top:1px solid #cbd5e1}
 @media(max-width:900px){
-.hero-card{grid-template-columns:1fr}.hero-photo{padding:32px 20px}.photo-frame{width:110px;height:110px}.hero-content{padding:24px 20px}.hero-content h1{font-size:1.9rem}
+.hero-card{grid-template-columns:1fr}.hero-photo{padding:0 0 24px 0}.photo-frame{width:100%;height:200px}.hero-content{padding:24px 20px}.hero-content h1{font-size:1.9rem}
 .stats-row{grid-template-columns:repeat(2,1fr)}.skills-grid,.edu-grid,.cert-grid{grid-template-columns:1fr}.projects-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.about-info-grid{grid-template-columns:1fr}.affiliations-grid{grid-template-columns:repeat(2,1fr)}.section{padding:48px 20px}
 .alt-timeline::before{left:20px}.alt-item{width:100%!important;margin-left:0!important;padding-left:48px!important;padding-right:0!important;text-align:left!important}.alt-item:nth-child(odd) .alt-dot,.alt-item:nth-child(even) .alt-dot{left:12px!important;right:auto!important}.alt-item:nth-child(odd) .alt-top{justify-content:flex-start}.alt-duration{display:none}
 }
