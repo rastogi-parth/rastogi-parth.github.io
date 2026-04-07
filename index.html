@@ -44,9 +44,9 @@ nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-sh
 .section-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);margin-bottom:8px}
 .section-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:36px;color:var(--text);display:inline-block;position:relative;padding-bottom:8px}
 .section-title::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:2px}
-.hero-wrap{background:var(--bg);position:relative;min-height:100vh;display:flex;flex-direction:column}
+.hero-wrap{background:var(--bg);position:relative;min-height:100vh}
 .hero-section{padding:0;max-width:100%;margin:0}
-.hero-scroll{position:relative;bottom:auto;left:auto;transform:none;display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 0;opacity:0.7;animation:scrollBounce 2s ease-in-out infinite;cursor:pointer}
+.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:10;opacity:0.7;animation:scrollBounce 2s ease-in-out infinite;cursor:pointer}
 .hero-scroll span{font-size:0.68rem;color:var(--text-muted);font-weight:500;letter-spacing:1px;text-transform:uppercase}
 .hero-scroll svg{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2}
 .hero-card{background:var(--card);border-radius:0;box-shadow:none;border:none;overflow:hidden;display:grid;grid-template-columns:320px 1fr;min-height:100vh}
@@ -67,7 +67,7 @@ nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-sh
 .scroll-indicator{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:10;opacity:0.7;animation:scrollBounce 2s ease-in-out infinite}
 .scroll-indicator span{font-size:0.68rem;color:var(--text-muted);font-weight:500;letter-spacing:1px;text-transform:uppercase}
 .scroll-indicator svg{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2}
-@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 .hero-content{padding:44px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:#fff}
 .hero-bg-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:url('bg-healthcare.png') center bottom/cover no-repeat;opacity:0.5;pointer-events:none}
 .hero-badge{display:inline-block;padding:5px 14px;background:var(--primary-light);color:var(--primary-dark);border-radius:50px;font-size:0.73rem;font-weight:600;margin-bottom:18px;width:fit-content;letter-spacing:0.5px}
@@ -224,7 +224,6 @@ footer{text-align:center;padding:20px 24px;font-size:0.77rem;color:var(--text-mu
 @media(max-width:900px){
 .hero-card{grid-template-columns:1fr;min-height:auto}.hero-photo{padding:0 0 24px 0}.photo-frame{width:100%;height:200px}.hero-content{padding:24px 20px}.hero-content h1{font-size:1.9rem}
 .stats-row{grid-template-columns:repeat(2,1fr)}.skills-grid,.edu-grid,.cert-grid{grid-template-columns:1fr}.projects-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.about-info-grid{grid-template-columns:1fr}.affiliations-grid{grid-template-columns:repeat(2,1fr)}.section{padding:48px 20px}
-.contact-wrap{min-height:auto}
 .alt-timeline::before{left:20px}.alt-item{width:100%!important;margin-left:0!important;padding-left:48px!important;padding-right:0!important;text-align:left!important}.alt-item:nth-child(odd) .alt-dot,.alt-item:nth-child(even) .alt-dot{left:12px!important;right:auto!important}.alt-item:nth-child(odd) .alt-top{justify-content:flex-start}.alt-duration{display:none}
 }
 @media(max-width:768px){.nav-links{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:#e2e8f0;border-bottom:1px solid #cbd5e1;padding:16px 24px;gap:14px;box-shadow:var(--shadow-md)}.nav-links.open{display:flex}.hamburger{display:block}}
@@ -259,6 +258,7 @@ footer{text-align:center;padding:20px 24px;font-size:0.77rem;color:var(--text-mu
 </div>
 </div></div>
 <div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth',block:'start'})"><span>Scroll</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+</div>
 
 <div style="height:48px;"></div>
 <div class="section-divider"><div class="dbl-line"></div></div>
