@@ -22,8 +22,8 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;z-ind
 body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.018;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 24v12M24 30h12' stroke='%230284c7' stroke-width='1' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-size:80px 80px}
 
 /* NAV - grey bg */
-nav{position:fixed;top:0;width:100%;z-index:1000;background:var(--bg-grey);border-bottom:1px solid var(--border);transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
-nav.scrolled{background:rgba(241,245,249,0.98);backdrop-filter:blur(16px);box-shadow:var(--shadow-md)}
+nav{position:fixed;top:0;width:100%;z-index:1000;background:#e2e8f0;border-bottom:1px solid #cbd5e1;transition:all 0.5s var(--ease);box-shadow:var(--shadow)}
+nav.scrolled{background:rgba(226,232,240,0.98);backdrop-filter:blur(16px);box-shadow:var(--shadow-md)}
 .nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;height:64px}
 .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-logo-img{width:32px;height:32px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--primary-light);border:1px solid var(--border)}
@@ -100,7 +100,7 @@ nav.scrolled{background:rgba(241,245,249,0.98);backdrop-filter:blur(16px);box-sh
 
 /* STATS */
 .stats-section{max-width:1100px;margin:0 auto;padding:0 24px}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding-bottom:24px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-bottom:24px}
 .stat-card{padding:20px;text-align:center;border-radius:var(--radius);background:var(--bg-alt);border:1px solid var(--border);transition:all 0.4s var(--ease);cursor:pointer;text-decoration:none;display:block;color:var(--text)}
 .stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);background:#fff}
 .stat-num{font-size:1.8rem;font-weight:800;color:var(--primary);line-height:1}
@@ -223,7 +223,7 @@ nav.scrolled{background:rgba(241,245,249,0.98);backdrop-filter:blur(16px);box-sh
 .cert-placeholder:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-bg)}
 
 /* CONTACT - full grey bg */
-.contact-wrap{background:var(--bg-grey);margin-top:24px}
+.contact-wrap{background:#e2e8f0;margin-top:24px}
 .contact-section-inner{padding:72px 24px;max-width:1100px;margin:0 auto}
 .contact-inner{text-align:center}
 .contact-sub{color:var(--text-light);font-size:0.93rem;margin-bottom:30px;max-width:500px;margin-left:auto;margin-right:auto}
@@ -237,13 +237,13 @@ nav.scrolled{background:rgba(241,245,249,0.98);backdrop-filter:blur(16px);box-sh
 .contact-card-label{font-size:0.72rem;color:var(--text-muted);font-weight:500}
 .contact-card-value{font-weight:600;color:var(--text);font-size:0.82rem;word-break:break-all}
 
-footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-muted);background:var(--bg-grey);border-top:1px solid var(--border)}
+footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-muted);background:#e2e8f0;border-top:1px solid #cbd5e1}
 
 /* MOBILE */
 @media(max-width:900px){
   .hero-card{grid-template-columns:1fr}.hero-photo{padding:32px 20px}.photo-frame{width:110px;height:110px}
   .hero-content{padding:24px 20px}.hero-content h1{font-size:1.9rem}
-  .stats-row{grid-template-columns:repeat(3,1fr)}.skills-grid,.edu-grid,.cert-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}.skills-grid,.edu-grid,.cert-grid{grid-template-columns:1fr}
   .projects-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}
   .about-info-grid{grid-template-columns:1fr}.affiliations-grid{grid-template-columns:repeat(2,1fr)}
   .section{padding:48px 20px}
@@ -254,7 +254,7 @@ footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-mu
   .alt-duration{display:none}
 }
 @media(max-width:768px){
-  .nav-links{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--bg-grey);border-bottom:1px solid var(--border);padding:16px 24px;gap:14px;box-shadow:var(--shadow-md)}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:#e2e8f0;border-bottom:1px solid #cbd5e1;padding:16px 24px;gap:14px;box-shadow:var(--shadow-md)}
   .nav-links.open{display:flex}.hamburger{display:block}
 }
 </style>
@@ -289,7 +289,7 @@ footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-mu
       <div class="photo-frame"><img src="photo.jpg" alt="Parth Rastogi"></div>
       <div class="hero-photo-name">Parth Rastogi</div>
       <div class="hero-photo-title">Regulatory Affairs Specialist</div>
-      <div class="hero-photo-location">Carteret, NJ</div>
+      <div class="hero-photo-location">New Jersey, United States</div>
       <div class="hero-photo-badges"><span>RAPS Member</span><span>MS Reg. Affairs · NEU</span></div>
     </div>
     <div class="hero-content">
@@ -310,7 +310,8 @@ footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-mu
 <div class="stats-section">
   <div class="stats-row stagger-children" id="stats-row">
     <a href="#experience" class="stat-card anim-child"><div class="stat-num" data-count="2">0</div><div class="stat-label">Years Experience</div></a>
-    <a href="#experience" class="stat-card anim-child"><div class="stat-num" data-count="15">0</div><div class="stat-label">Products Submitted · 10+ Countries</div></a>
+    <a href="#experience" class="stat-card anim-child"><div class="stat-num" data-count="15">0</div><div class="stat-label">Products Submitted</div></a>
+    <a href="#countries" class="stat-card anim-child"><div class="stat-num" data-count="5">0</div><div class="stat-label">Countries</div></a>
     <a href="#publications" class="stat-card anim-child"><div class="stat-num" data-count="3">0</div><div class="stat-label">Publications</div></a>
   </div>
 </div>
@@ -327,9 +328,19 @@ footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-mu
   </div>
   <div class="about-info-grid">
     <div class="about-info-item"><span class="dot"></span>Open to Opportunities</div>
-    <div class="about-info-item"><span class="dot"></span>Carteret, NJ</div>
+    <div class="about-info-item"><span class="dot"></span>New Jersey, United States</div>
     <div class="about-info-item"><span class="dot"></span>MS Regulatory Affairs · NEU</div>
     <div class="about-info-item"><span class="dot"></span>RAPS · ACS · SPER · ISPE</div>
+  </div>
+  <div id="countries" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;">
+    <div class="skill-card" style="background:#e2e8f0;border:1px solid #cbd5e1;">
+      <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>Countries</h3>
+      <div class="skill-tags"><span>USA</span><span>EU</span><span>LATAM</span><span>Asia</span><span>Africa</span><span>Canada</span></div>
+    </div>
+    <div class="skill-card">
+      <h3><span class="skill-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>Dossiers</h3>
+      <div class="skill-tags"><span>NDA/ANDA</span><span>510(k)</span><span>eSTAR</span><span>PMA</span><span>EU MDR</span><span>CTD</span><span>ACTD</span><span>eCTD</span></div>
+    </div>
   </div>
   <div style="margin-top:28px;">
     <p style="font-size:0.93rem;color:var(--text-light);margin-bottom:16px;">My technical core bridges the gap between traditional regulatory affairs and modern health tech.</p>
@@ -550,7 +561,7 @@ footer{text-align:center;padding:28px 24px;font-size:0.77rem;color:var(--text-mu
   </div>
 </div>
 
-<footer>&copy; 2026 Parth Rastogi · Regulatory Affairs & Quality Assurance · Carteret, NJ</footer>
+<footer>&copy; 2026 Parth Rastogi · Regulatory Affairs & Quality Assurance · New Jersey, United States</footer>
 
 <script>
 const nav=document.getElementById('nav');
